@@ -4,7 +4,7 @@
   "description": "This is a manual code library!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-promise": "mocha -r ts-node/register -r tsconfig-paths/register test/promise.spec.ts"
   },
   "repository": {
     "type": "git",
