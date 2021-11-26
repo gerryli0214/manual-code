@@ -2,20 +2,19 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: "simpleEditor.js",
+    path: path.resolve(__dirname, './dist'),
+    filename: "[name].js",
     library: {
-      name: 'simpleEditor',
+      name: '[name].js',
       type: 'umd',
-      export: 'default',
+      export: 'default'
     }
   },
   devtool: "source-map",
   module: {
     rules: [
-      { test: /\.tsx?$/, use: "ts-loader" },
       {
         test: /\.js/,
         exclude: /node_modules/,
@@ -42,6 +41,6 @@ module.exports = {
     new CleanWebpackPlugin()
   ],
   resolve: {
-    extensions: [ '.ts', '.js', '.json' ] // webpack 默认只会解析['.js', '.json', '.wasm']
+    extensions: [ '.js', '.json' ] // webpack 默认只会解析['.js', '.json', '.wasm']
   }
 };
