@@ -11,19 +11,32 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(list1, list2) {
-    if (!list1.next) return list2
-    if (!list2.next) return list1
     // 新建一个空的ListNode
-    let newList = new ListNode()
-    let item1 = list1
-    let item2 = list2
-    while (list1.next || list2.next) {
-        if (item1 > item2) {
-            newList.next = new ListNode(item2)
-            item2 = list2.next
+    let newList = null
+    let currentNode = null
+    let pNode = null
+    while (list1 || list2) {
+        if (!list1) {
+          currentNode = list2
+          list2 = list2.next
+        } else if (!list2) {
+          currentNode = list1
+          list1 = list1.next
         } else {
-            newList.next = new ListNode(item1)
-            item1 = list1.next
+          if (list1.val > list2.val) {
+              currentNode = list2
+              list2 = list2.next
+          } else {
+              currentNode = list1
+              list1 = list1.next
+          }
+        }
+        if (!newList) {
+          newList = currentNode
+          pNode = newList
+        } else {
+          pNode.next = currentNode
+          pNode = pNode.next
         }
     }
     return newList
@@ -37,5 +50,14 @@ function ListNode (val, next) {
     this.val = (val=== undefined ? 0 : val)
     this.next = (next=== undefined ? null : next)
 }
-let l1 = [1,2,4], l2 = [1,3,4]
+
+function createListNode (arr) {
+    let list = null
+    while (arr.length > 0) {
+        let val = arr.pop()
+        list = new ListNode(val, list)
+    }
+    return list
+}
+let l1 = createListNode([1,2,4]), l2 = createListNode([1,3,4])
 console.log(mergeTwoLists(l1, l2))
